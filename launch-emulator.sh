@@ -44,4 +44,4 @@ sed -i -e 's/PORT/'"$P"'/' ./nodeconfig.json
 nohup appium --nodeconfig ./nodeconfig.json -p $P -bp $BP -U $DID > appium.log 2>&1
 
 echo "no" | /usr/local/android-sdk-linux/tools/android create avd -f -n test -t ${EMULATOR} --abi default/${ARCH}
-echo "no" | /usr/local/android-sdk-linux/tools/emulator64-${EMU} -avd test -sdcard qasdcard.img -noaudio -no-window -gpu off -verbose -qemu -usbdevice tablet
+echo "no" | /usr/local/android-sdk-linux/tools/emulator64-${EMU} -avd test -sdcard qasdcard.img -noaudio -no-window -gpu off -verbose -qemu -usbdevice tablet -vnc :${INDEX}
