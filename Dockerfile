@@ -45,9 +45,7 @@ RUN chown -R root:root /usr/local/android-sdk-linux/ \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --all --filter platform-tool --no-ui --force \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter platform --no-ui --force \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter build-tools-22.0.1 --no-ui -a \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-android-19 --no-ui -a \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-android-21 --no-ui -a \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-android-22 --no-ui -a \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-android-23 --no-ui -a \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update adb \
 && mkdir /usr/local/android-sdk-linux/tools/keymaps \
 && touch /usr/local/android-sdk-linux/tools/keymaps/en-us \

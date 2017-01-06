@@ -1,7 +1,7 @@
 {
         "capabilities": [{
-                "applicationName": "Samsung S4",
-                "browserName": "Samsung S4",
+                "applicationName": "Nexus 9",
+                "browserName": "Nexus 9",
                 "platformName": "ANDROID",
                 "maxInstances": 1
         }],

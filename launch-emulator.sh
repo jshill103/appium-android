@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $EMULATOR == "" ]]; then
-    EMULATOR="android-19"
+    EMULATOR="android-23"
     echo "Using default emulator $EMULATOR"
 fi
 
@@ -41,7 +41,12 @@ IPA=$(ifconfig  | grep 'inet addr:'| cut -d: -f2 | awk '{ print $1}' | head -n 2
 sed -i -e 's/IPADDRESS/'"$IPA"'/' ./nodeconfig.json
 sed -i -e 's/PORT/'"$P"'/' ./nodeconfig.json
 
+#start appium and register the node
 nohup appium --nodeconfig ./nodeconfig.json -p $P -bp $BP -U $DID > appium.log 2>&1
 
-echo "no" | /usr/local/android-sdk-linux/tools/android create avd -f -n test -t ${EMULATOR} --abi default/${ARCH}
-echo "no" | /usr/local/android-sdk-linux/tools/emulator64-${EMU} -avd test -sdcard qasdcard.img -noaudio -no-window -gpu off -verbose -qemu -usbdevice tablet -vnc :${INDEX}
+#create our AVD
+echo "no" | /usr/local/android-sdk-linux/tools/android create avd -f -n test -t ${EMULATOR} -s "1536x2048" --abi default/${ARCH}
+sleep 120
+#wait till avd is created and then modify the config to give us 2gbs of ram on our device
+sed "$a\hw.ramSize=2048"
+echo "no" | /usr/local/android-sdk-linux/tools/emulator64-${EMU} -avd test -sdcard qasdcard.img -noaudio -no-window -gpu off -verbose -qemu -usbdevice tablet
