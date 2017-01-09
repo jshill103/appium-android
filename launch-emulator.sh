@@ -33,7 +33,7 @@ else
     EMU="arm"
 fi
 
-DID=$(expr $INDEX \* 2 + 5554)
+DID=$(expr $INDEX * 2 + 5554)
 P=$(expr $INDEX + 4723)
 BP=$(expr $INDEX + 4823)
 IPA=$(ifconfig  | grep 'inet addr:'| cut -d: -f2 | awk '{ print $1}' | head -n 2 | tail -n 1)
