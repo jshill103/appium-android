@@ -7,8 +7,6 @@
 docker run -di jshillingburg/appium-android
 ```
 
-In order for this image to register to your grid you **MUST PASS AN UNUSED INDEX** 
-
 # TODO
 Allow use of premade avd (DONE)
 
