@@ -19,6 +19,9 @@ ssh \
 net-tools \
 openssh-server \
 socat \
+build-essential \
+gettext \
+mono-complete \
 && apt-get clean \
 && apt-get -y install software-properties-common \
 && add-apt-repository ppa:webupd8team/java \
@@ -31,21 +34,19 @@ ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
 RUN wget http://dl.google.com/android/android-sdk_r23-linux.tgz \
 && tar -xvzf android-sdk_r23-linux.tgz -C /usr/local/ \
 && rm android-sdk_r23-linux.tgz \
-&& wget http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.4-bin.tar.gz \
-&& tar -xvzf apache-ant-1.8.4-bin.tar.gz -C /usr/local/ \
-&& rm apache-ant-1.8.4-bin.tar.gz
+&& wget http://download.mono-project.com/sources/mono/mono-3.6.0.tar.bz2 \
+&& tar xvjf mono-3.6.0.tar.bz2 
 
 ENV ANDROID_HOME=/usr/local/android-sdk-linux 
 ENV PATH=$PATH:$ANDROID_HOME/tools 
 ENV PATH=$PATH:$ANDROID_HOME/platform-tools 
-ENV ANT_HOME=/usr/local/apache-ant-1.8.4 
-ENV PATH=$PATH:$ANT_HOME/bin
 
 RUN chown -R root:root /usr/local/android-sdk-linux/ \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --all --filter platform-tool --no-ui --force \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter platform --no-ui --force \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter build-tools-22.0.1 --no-ui -a \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter android-23 --no-ui --force \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter build-tools-23.0.1 --no-ui -a \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-android-23 --no-ui -a \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-google_apis-23 --no-ui -a \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update adb \
 && mkdir /usr/local/android-sdk-linux/tools/keymaps \
 && touch /usr/local/android-sdk-linux/tools/keymaps/en-us \
@@ -56,20 +57,12 @@ RUN chown -R root:root /usr/local/android-sdk-linux/ \
 && sed 's@session\srequired\spam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
 ENV NOTVISIBLE "in users profile"
-
-RUN echo "export VISIBLE=now" >> /etc/profile \
-&& wget https://nodejs.org/download/release/v6.2.0/node-v6.2.0-linux-x64.tar.gz \
-&& tar -xvzf node-v6.2.0-linux-x64.tar.gz -C /usr/local/ \
-&& rm node-v6.2.0-linux-x64.tar.gz
-
-ENV NODE_HOME /usr/local/node-v6.2.0-linux-x64
-ENV PATH $PATH:$NODE_HOME/bin
-
-RUN mkdir /usr/local/appium \
-&& cd /usr/local/appium && npm install -g appium \
-&& mkdir /apk
+RUN echo "export VISIBLE=now" >> /etc/profile
 
 ADD launch-emulator.sh /launch-emulator.sh
-ADD nodeconfig.json /nodeconfig.json
-RUN chmod +x /launch-emulator.sh
-ENTRYPOINT ["/launch-emulator.sh"]
+ADD runTests.sh /runTests.sh
+ADD pix.avd /pix.avd
+ADD pix.ini /pix.ini
+RUN chmod +x /launch-emulator.sh \
+&& chmod +x /runTests.sh
+ENTRYPOINT ["/runTests.sh"]

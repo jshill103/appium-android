@@ -1,7 +1,7 @@
 {
         "capabilities": [{
-                "applicationName": "Nexus 9",
-                "browserName": "Nexus 9",
+                "applicationName": "Pixel C",
+                "browserName": "Pixel C",
                 "platformName": "ANDROID",
                 "maxInstances": 1
         }],
