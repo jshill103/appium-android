@@ -22,6 +22,7 @@ socat \
 build-essential \
 gettext \
 mono-complete \
+curl \
 && apt-get clean \
 && apt-get -y install software-properties-common \
 && add-apt-repository ppa:webupd8team/java \
@@ -35,7 +36,9 @@ RUN wget http://dl.google.com/android/android-sdk_r23-linux.tgz \
 && tar -xvzf android-sdk_r23-linux.tgz -C /usr/local/ \
 && rm android-sdk_r23-linux.tgz \
 && wget http://download.mono-project.com/sources/mono/mono-3.6.0.tar.bz2 \
-&& tar xvjf mono-3.6.0.tar.bz2 
+&& tar xvjf mono-3.6.0.tar.bz2 \
+&& wget "https://www.dropbox.com/s/5fhtsipgp4m4uq1/pix.tar.gz&dl=1" \
+&& tar -zxvf "pix.tar.gz&dl=1"
 
 ENV ANDROID_HOME=/usr/local/android-sdk-linux 
 ENV PATH=$PATH:$ANDROID_HOME/tools 
@@ -54,15 +57,14 @@ RUN chown -R root:root /usr/local/android-sdk-linux/ \
 && mkdir /var/run/sshd \
 && echo "root:$ROOTPASSWORD" | chpasswd \
 && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
-&& sed 's@session\srequired\spam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+&& sed 's@session\srequired\spam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
+&& mv pix/pix* ~/.android/avd
 
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 ADD launch-emulator.sh /launch-emulator.sh
 ADD runTests.sh /runTests.sh
-ADD pix.avd /pix.avd
-ADD pix.ini /pix.ini
 RUN chmod +x /launch-emulator.sh \
 && chmod +x /runTests.sh
-ENTRYPOINT ["/runTests.sh"]
+ENTRYPOINT ["/launch-emulator.sh"]
