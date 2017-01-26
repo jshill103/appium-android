@@ -9,4 +9,4 @@ echo "Started emulator"
 
 sleep 90
 
-#mono Tests.exe $CMD1 $CMD2 $CMD3
+mono Tests.exe $CMD1 $CMD2 $CMD3
