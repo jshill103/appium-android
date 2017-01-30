@@ -10,3 +10,5 @@ echo "Started emulator"
 sleep 90
 
 mono /runner/automation.xactimate.Android/Android/Tests/bin/USRelease/Tests.exe $CMD1 $CMD2 $CMD3
+
+sleep 90
