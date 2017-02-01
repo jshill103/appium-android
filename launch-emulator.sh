@@ -21,6 +21,6 @@ then
     fi
 done
 
-sleep 5
+sleep 30
 mono /runner/automation.xactimate.Android/Android/Tests/bin/USRelease/Tests.exe $ONE $TWO $THREE
 sleep 120
