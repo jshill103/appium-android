@@ -23,6 +23,12 @@ build-essential \
 gettext \
 mono-complete \
 curl \
+xorg \
+xvfb \
+xfonts-100dpi \
+xfonts-75dpi \
+xfonts-scalable \
+xfonts-cyrillic 
 && apt-get clean \
 && apt-get -y install software-properties-common \
 && add-apt-repository ppa:webupd8team/java \
