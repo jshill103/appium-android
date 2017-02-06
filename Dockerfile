@@ -22,7 +22,6 @@ socat \
 build-essential \
 gettext \
 mono-complete \
-curl \
 xorg \
 xvfb \
 xfonts-100dpi \
@@ -41,8 +40,6 @@ ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
 RUN wget http://dl.google.com/android/android-sdk_r23-linux.tgz \
 && tar -xvzf android-sdk_r23-linux.tgz -C /usr/local/ \
 && rm android-sdk_r23-linux.tgz \
-&& wget http://download.mono-project.com/sources/mono/mono-3.6.0.tar.bz2 \
-&& tar xvjf mono-3.6.0.tar.bz2 \
 && wget "https://www.dropbox.com/s/5fhtsipgp4m4uq1/pix.tar.gz&dl=1" \
 && tar -zxvf "pix.tar.gz&dl=1"
 
