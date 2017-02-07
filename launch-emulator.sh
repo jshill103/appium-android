@@ -8,7 +8,7 @@ adb start-server
 export DISPLAY=:1
 echo 'display is set'
 
-echo "no" | /usr/local/android-sdk-linux/tools/emulator64-x86 -avd pix -sdcard qasdcard.img -noaudio -no-window -gpu off -verbose -qemu -usbdevice tablet &
+echo "no" | /usr/local/android-sdk-linux/tools/emulator64-x86 -avd pix -sdcard qasdcard.img -noaudio -verbose -qemu -usbdevice tablet &
 echo "Started emulator"
 
 SENTINEL=0
