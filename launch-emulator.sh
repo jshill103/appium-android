@@ -4,8 +4,8 @@
 /usr/sbin/sshd
 adb start-server
 
-#/usr/bin/Xvfb :1 -screen 0 2560x1800x24 &
-#export DISPLAY=:1
+/usr/bin/Xvfb :1 -screen 0 2560x1800x24 &
+export DISPLAY=:1
 #echo 'display is set'
 
 echo "no" | /usr/local/android-sdk-linux/tools/emulator -avd pix &
