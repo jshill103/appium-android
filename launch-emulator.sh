@@ -4,11 +4,11 @@
 /usr/sbin/sshd
 adb start-server
 
-/usr/bin/Xvfb :1 -screen 0 2560x1800x24 &
-export DISPLAY=:1
-echo 'display is set'
+#/usr/bin/Xvfb :1 -screen 0 2560x1800x24 &
+#export DISPLAY=:1
+#echo 'display is set'
 
-echo "no" | /usr/local/android-sdk-linux/tools/emulator64-x86 -avd pix -sdcard qasdcard.img -noaudio -verbose -qemu -usbdevice tablet &
+echo "no" | /usr/local/android-sdk-linux/tools/emulator -avd pix &
 echo "Started emulator"
 
 SENTINEL=0
