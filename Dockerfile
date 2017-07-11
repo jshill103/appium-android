@@ -32,7 +32,7 @@ xfonts-cyrillic \
 && apt-get -y install software-properties-common \
 && add-apt-repository ppa:webupd8team/java \
 && apt-get update \
-&& apt-get -y install oracle-java7-installer \
+&& apt-get -y install oracle-java8-installer \
 && apt-get clean
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
@@ -40,8 +40,8 @@ ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
 RUN wget http://dl.google.com/android/android-sdk_r23-linux.tgz \
 && tar -xvzf android-sdk_r23-linux.tgz -C /usr/local/ \
 && rm android-sdk_r23-linux.tgz \
-&& wget "https://www.dropbox.com/s/5fhtsipgp4m4uq1/pix.tar.gz&dl=1" \
-&& tar -zxvf "pix.tar.gz&dl=1"
+&& wget "https://www.dropbox.com/s/rppl8pqwus6ou0i/nexus9.tar.gz?dl=1" \
+&& tar -zxvf "nexus9.tar.gz?dl=1"
 
 ENV ANDROID_HOME=/usr/local/android-sdk-linux 
 ENV PATH=$PATH:$ANDROID_HOME/tools 
@@ -61,7 +61,12 @@ RUN chown -R root:root /usr/local/android-sdk-linux/ \
 && echo "root:$ROOTPASSWORD" | chpasswd \
 && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
 && sed 's@session\srequired\spam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
-&& mv pix/pix* ~/.android/avd
+&& mv nexus9/Nexus9* ~/.android/avd
+&& echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list \
+&& apt-get update \
+&& apt-get install -y x11vnc xvfb firefox \
+&& mkdir ~/.vnc \
+&& x11vnc -storepasswd 1234 ~/.vnc/passwd
 
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
