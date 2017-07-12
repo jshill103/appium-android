@@ -8,7 +8,7 @@ adb start-server
 export DISPLAY=:1
 #echo 'display is set'
 
-echo "no" | /usr/local/android-sdk-linux/tools/emulator -avd pix &
+echo "no" | /usr/local/android-sdk-linux/tools/emulator -avd Nexus9 &
 echo "Started emulator"
 
 SENTINEL=0

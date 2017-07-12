@@ -35,7 +35,7 @@ xfonts-cyrillic \
 && apt-get -y install oracle-java8-installer \
 && apt-get clean
 
-ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 RUN wget http://dl.google.com/android/android-sdk_r23-linux.tgz \
 && tar -xvzf android-sdk_r23-linux.tgz -C /usr/local/ \
@@ -61,7 +61,7 @@ RUN chown -R root:root /usr/local/android-sdk-linux/ \
 && echo "root:$ROOTPASSWORD" | chpasswd \
 && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
 && sed 's@session\srequired\spam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
-&& mv nexus9/Nexus9* ~/.android/avd \
+&& mv avd/* ~/.android/avd \
 && echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list \
 && apt-get update \
 && apt-get install -y x11vnc xvfb firefox \
