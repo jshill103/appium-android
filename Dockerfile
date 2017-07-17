@@ -35,7 +35,7 @@ xfonts-cyrillic \
 && apt-get -y install oracle-java8-installer \
 && apt-get clean
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV JAVA_HOME=/usr/lib/jvm/java-8-oracle
 
 RUN wget http://dl.google.com/android/android-sdk_r23-linux.tgz \
 && tar -xvzf android-sdk_r23-linux.tgz -C /usr/local/ \
@@ -49,10 +49,10 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools
 
 RUN chown -R root:root /usr/local/android-sdk-linux/ \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --all --filter platform-tool --no-ui --force \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter android-23 --no-ui --force \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter build-tools-23.0.1 --no-ui -a \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-android-23 --no-ui -a \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-google_apis-23 --no-ui -a \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter android-24 --no-ui --force \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter build-tools-24.0.1 --no-ui -a \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-android-24 --no-ui -a \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-google_apis-24 --no-ui -a \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update adb \
 && mkdir /usr/local/android-sdk-linux/tools/keymaps \
 && touch /usr/local/android-sdk-linux/tools/keymaps/en-us \
