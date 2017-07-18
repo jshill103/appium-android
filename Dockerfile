@@ -24,6 +24,8 @@ gettext \
 mono-complete \
 xorg \
 xvfb \
+nano \
+vim \
 xfonts-100dpi \
 xfonts-75dpi \
 xfonts-scalable \
@@ -40,7 +42,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-oracle
 RUN wget http://dl.google.com/android/android-sdk_r23-linux.tgz \
 && tar -xvzf android-sdk_r23-linux.tgz -C /usr/local/ \
 && rm android-sdk_r23-linux.tgz \
-&& wget "https://www.dropbox.com/s/rppl8pqwus6ou0i/nexus9.tar.gz?dl=1" \
+&& wget "https://www.dropbox.com/s/d9e9ibe9nw7exf0/nexus9.tar.gz?dl=1" \ 
 && tar -zxvf "nexus9.tar.gz?dl=1"
 
 ENV ANDROID_HOME=/usr/local/android-sdk-linux 
@@ -49,10 +51,10 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools
 
 RUN chown -R root:root /usr/local/android-sdk-linux/ \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --all --filter platform-tool --no-ui --force \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter android-24 --no-ui --force \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter android-22 --no-ui --force \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter build-tools-24.0.1 --no-ui -a \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-android-24 --no-ui -a \
-&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-google_apis-24 --no-ui -a \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-android-22 --no-ui -a \
+&& ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --filter sys-img-x86-google_apis-22 --no-ui -a \
 && ( while [ 1 ]; do sleep 5; echo y; done ) | android update adb \
 && mkdir /usr/local/android-sdk-linux/tools/keymaps \
 && touch /usr/local/android-sdk-linux/tools/keymaps/en-us \
@@ -61,7 +63,7 @@ RUN chown -R root:root /usr/local/android-sdk-linux/ \
 && echo "root:$ROOTPASSWORD" | chpasswd \
 && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
 && sed 's@session\srequired\spam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
-&& mv avd/* ~/.android/avd \
+&& mv nexus9/* ~/.android/avd \
 && echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list \
 && apt-get update \
 && apt-get install -y x11vnc xvfb firefox \

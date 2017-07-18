@@ -8,7 +8,7 @@ adb start-server
 export DISPLAY=:1
 #echo 'display is set'
 
-echo "no" | /usr/local/android-sdk-linux/tools/emulator -avd Nexus9 &
+echo "no" | /usr/local/android-sdk-linux/tools/ export QEMU_AUDIO_DRV=none && ./emulator -avd Nexus9&
 echo "Started emulator"
 
 SENTINEL=0
@@ -20,6 +20,9 @@ then
         let SENTINEL=SENTINEL+1
     fi
 done
+
+RUN cd /usr/local/android-sdk-linux/tools/ \
+	&& export QEMU_AUDIO_DRV=none && ./emulator -avd Nexus -no-window &
 
 sleep 30
 mono /runner/automation.xactimate.Android/Android/Tests/bin/USRelease/Tests.exe $ONE $TWO $THREE
